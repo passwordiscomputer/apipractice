@@ -6,6 +6,10 @@ import { Api } from './api.js';
 
 $(document).ready(function() {
   let apiCall = new Api();
-  let array = apiCall.getTasteData("carol", "movie");
-  console.log("YOUR MAIN.JS ARRAY: ", array);
+  let array = apiCall.getTasteData("Speed", "Movie");
+  console.log("Your goddamned array", array);
+  console.log(array[0]);
+
+
+
 });
