@@ -8,7 +8,8 @@ $(document).ready(function() {
   let apiCall = new Api();
   let array = apiCall.getTasteData("Speed", "Movie");
   console.log("Your goddamned array", array);
-  console.log(array[0]);
+  
+
 
 
 
