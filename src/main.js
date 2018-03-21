@@ -6,7 +6,7 @@ import { Api } from './api.js';
 
 const display = function(movie, image) {
   $('.container-fluid').append(`<div class="card" style="width:50rem;">
-                                  <img src="http://image.tmdb.org/t/p/w185///${image}" alt="">
+                                  <img src="http://image.tmdb.org/t/p/w185///${image}" alt="" style="width:185px;">
                                   ${movie}
                                 <div class="card-body">`);
 }
