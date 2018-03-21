@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export class Api {
 
-  getTasteData(tasteQuery, tasteType, display) {
+  getTasteData(tasteQuery, tasteType, callback) {
     const tasteKey = process.env.TASTE_API_KEY;
     const movieKey = process.env.MOVIE_KEY;
     let array = [];
@@ -17,15 +17,12 @@ export class Api {
         $.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movie}`).then(function(response){
           let summary = response.results[0].overview
           let poster = response.results[0].poster_path
-          display(summary, poster);
+          callback(summary, poster);
         });
       });
     }).fail(function(error) {
       alert("You failed. You are a failure. You failed.")
     });
-    setInterval(function(){
-      console.log(wikiArr);
-    }, 5000);
   }
 }
 
