@@ -15,8 +15,9 @@ export class Api {
 
       array.forEach(function(movie) {
         $.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movie}`).then(function(response){
-          let summary = response.results[0].overview
-          let poster = response.results[0].poster_path
+          let summary = response.results[0].overview;
+          let poster = response.results[0].poster_path;
+          
           callback(summary, poster);
         });
       });
@@ -24,6 +25,8 @@ export class Api {
       alert("You failed. You are a failure. You failed.")
     });
   }
+
+  gmapsApi()
 }
 
 
