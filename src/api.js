@@ -1,32 +1,24 @@
 import $ from 'jquery';
 
 export class Api {
-
-  getTasteData(tasteQuery, tasteType, callback) {
-    const tasteKey = process.env.TASTE_API_KEY;
-    const movieKey = process.env.MOVIE_KEY;
-    let array = [];
-    let wikiArr = [];
-    $.get(`https://tastedive.com/api/similar?k=${tasteKey}&q=${tasteQuery}&type=${tasteType}`).then(function(response){
-      for (var i = 0; i < 10; i++) {
-        console.log(response.Similar.Results[i].Name);
-        array.push(response.Similar.Results[i].Name);
+  requestMovie(movie) {
+    return new Promise(function(resolve, reject){
+      const tasteKey = process.env.TASTE_API_KEY;
+      const movieKey = process.env.MOVIE_KEY;
+      let request = new XMLHttpRequest();
+      let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movie}`;
+      request.onload = function() {
+        if (this.status === 200) {
+          let reply = JSON.parse(request.response)
+          resolve(reply.results[0].title);
+        } else {
+          reject(alert(request.statusText));
+        }
       }
-
-      array.forEach(function(movie) {
-        $.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieKey}&query=${movie}`).then(function(response){
-          let summary = response.results[0].overview;
-          let poster = response.results[0].poster_path;
-          
-          callback(summary, poster);
-        });
-      });
-    }).fail(function(error) {
-      alert("You failed. You are a failure. You failed.")
-    });
+      request.open("GET", url, true);
+      request.send();
+    })
   }
-
-  gmapsApi()
 }
 
 
