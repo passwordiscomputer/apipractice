@@ -4,23 +4,35 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Api } from './api.js';
 
-// const display = function(movie, image) {
-//   $('#content').append(`<div class="col-md-6"><div class="card" style="width:50rem;">
-//                                   <img src="http://image.tmdb.org/t/p/w185///${image}" alt="" style="width:185px;">
-//                                   ${movie}
-//                                 <div class="card-body"></div>`);
-// }
-
-const displayMovie = function(movie) {
-  alert("Here, finally, is your movie: " + movie)
+function displayMovies(movieData){
+  $('.container .row').append(`<div class="col-sm-3">
+                          <div class="card">
+                            <img src="http://image.tmdb.org/t/p/w185//${movieData[2]}" alt="">
+                            <h4>${movieData[0]}</h4>
+                            <p>${movieData[1]}</p>
+                          </div>
+                        </div>`)
 }
 
+
 $(document).ready(function() {
-
   let apiCall = new Api();
-  let promise = apiCall.requestMovie('casa');
-  promise.then(function(response){
-    displayMovie(response);
-  });
+  $("button").click(function(){
+    $(".container .row").empty();
+    let movie = $("#input").val();
+    apiCall.getSimilarMovies(movie, displayMovies);
+  })
 
+  // apiCall.callTasteDiveApi('casa blanca')
+  // .then((response)=>{
+  //   let movieArray = apiCall.extractTasteDive(response);
+  //   movieArray.forEach(function(movie){
+  //     apiCall.callMovieDBApi(movie)
+  //     .then((response)=>{
+  //       console.log(apiCall.extractMovieDB(response))
+  //       displayMovies(apiCall.extractMovieDB(response));
+  //     })
+  //   })
+  //
+  // });
 });
